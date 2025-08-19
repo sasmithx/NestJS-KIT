@@ -1,0 +1,14 @@
+### GET request to example server
+POST http://localhost:3000/api/v1/product/create-product
+Content-Type: application/json
+
+{
+  "title": "product 01",
+  "price": 1500,
+  "description": "This is a sample product description.",
+  "image": "image_url_here"
+}
+
+####
+
+GET http://localhost:3000/api/v1/product/all-products
