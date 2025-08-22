@@ -69,7 +69,9 @@ export class ProductService {
       return `${id} is updated successfully`;
     } catch (e) {
       console.log(e);
-      if (e instanceof HttpException) throw e;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      if (e['code'] === 'P2025')
+        throw new NotFoundException(`Product with ID ${id} not found`);
       throw new InternalServerErrorException(`Internal server error`);
     }
   }
@@ -82,7 +84,9 @@ export class ProductService {
       return `${deletedProduct.title} is deleted successfully`;
     } catch (e) {
       console.log(e);
-      if (e instanceof HttpException) throw e;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      if (e['code'] === 'P2025')
+        throw new NotFoundException(`Product with ID ${id} not found`);
       throw new InternalServerErrorException(`Internal server error`);
     }
   }
