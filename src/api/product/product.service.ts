@@ -1,6 +1,13 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Delete,
+  HttpException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../../config/prisma/prisma.service';
-import { AllProductResponse, ProductData } from './dto/product-response';
+import { AllProductResponse } from './dto/product-response';
+import { ProductData, ProductUpdate } from './dto/product-request';
 
 @Injectable()
 export class ProductService {
@@ -28,9 +35,15 @@ export class ProductService {
           image: true,
         },
       });
+      if (!product) {
+        throw new NotFoundException(`Product with ID ${id} not found`);
+      }
       return product as ProductData;
     } catch (e) {
       console.log(e);
+      if (e instanceof HttpException) {
+        throw e;
+      }
       throw new InternalServerErrorException('Product not found');
     }
   }
@@ -44,6 +57,33 @@ export class ProductService {
     } catch (e) {
       console.log(e);
       throw new InternalServerErrorException('Product not created');
+    }
+  }
+
+  async updateProduct(id: number, product: ProductUpdate) {
+    try {
+      await this.DB.product.update({
+        where: { id: +id },
+        data: product,
+      });
+      return `${id} is updated successfully`;
+    } catch (e) {
+      console.log(e);
+      if (e instanceof HttpException) throw e;
+      throw new InternalServerErrorException(`Internal server error`);
+    }
+  }
+
+  async deleteProduct(id: number): Promise<string> {
+    try {
+      const deletedProduct = await this.DB.product.delete({
+        where: { id: +id },
+      });
+      return `${deletedProduct.title} is deleted successfully`;
+    } catch (e) {
+      console.log(e);
+      if (e instanceof HttpException) throw e;
+      throw new InternalServerErrorException(`Internal server error`);
     }
   }
 }

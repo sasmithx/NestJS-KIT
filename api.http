@@ -15,4 +15,19 @@ GET http://localhost:3000/api/v1/product/all-products
 
 ###
 
-GET http://localhost:3000/api/v1/product/by-id/1
+GET http://localhost:3000/api/v1/product/by-id/2
+
+###
+
+PUT http://localhost:3000/api/v1/product/update-product/2
+Content-Type: application/json
+
+{
+  "title": "product 01 updated",
+  "price": 1600,
+  "description": "This is a updated product description.",
+  "image": "image_url_here_updated"
+}
+
+###
+DELETE http://localhost:3000/api/v1/product/delete-product/3
