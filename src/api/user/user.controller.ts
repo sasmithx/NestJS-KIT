@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpStatus,
+  HttpCode,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -9,6 +19,17 @@ export class UserController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto);
+  }
+
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  login(@Body() loginuserData: { username: string; password: string }) {
+    return this.userService.login(loginuserData);
+  }
+
+  @Post('register')
+  register(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 

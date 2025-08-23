@@ -31,3 +31,25 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/api/v1/product/delete-product/5
+
+### USER ###
+POST http://localhost:3000/api/v1/user/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "age": 30,
+  "username": "johndoe",
+  "password": "password123",
+  "email": "email@gmail.com"
+}
+
+
+###Login User###
+POST http://localhost:3000/api/v1/user/login
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "password": "password123"
+}

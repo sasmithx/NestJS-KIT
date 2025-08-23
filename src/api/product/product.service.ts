@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../../config/prisma/prisma.service';
 import { AllProductResponse } from './dto/product-response';
-import { ProductData, ProductUpdate } from './dto/product-request';
+import { ProductData } from './dto/product-request';
 
 @Injectable()
 export class ProductService {
@@ -60,7 +60,7 @@ export class ProductService {
     }
   }
 
-  async updateProduct(id: number, product: ProductUpdate) {
+  async updateProduct(id: number, product: ProductData) {
     try {
       await this.DB.product.update({
         where: { id: +id },
