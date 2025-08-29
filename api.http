@@ -53,3 +53,11 @@ Content-Type: application/json
   "username": "johndoe",
   "password": "password123"
 }
+
+###
+POST http://localhost:3000/api/v1/user/verifyToken
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NTY0NzcyNTIsImV4cCI6MTc1NjQ4MDg1Mn0.5V3xsNCpWlKa41mzgqK4QdmTpkFlfduxqkWcNWe8mb4"
+}

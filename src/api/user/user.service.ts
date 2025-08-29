@@ -9,10 +9,14 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../../config/prisma/prisma.service';
 import { LoginUserData } from './dto/user-request-dto';
+import { JwtAuthService } from '../../config/jwt/jwt.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly DB: PrismaService) {}
+  constructor(
+    private readonly DB: PrismaService,
+    private readonly jwt: JwtAuthService,
+  ) {}
 
   async login(userloginData: LoginUserData) {
     try {
@@ -23,12 +27,16 @@ export class UserService {
         throw new NotFoundException(`${userloginData.username} not found`);
       if (user.password !== userloginData.password)
         throw new BadRequestException(`Invalid credentials`);
-      return `${userloginData.username} is successfully logged in`;
+      return this.jwt.getToken();
     } catch (e) {
       console.log(e);
       if (e instanceof HttpException) throw e;
       throw new InternalServerErrorException(`Internal server error`);
     }
+  }
+
+  async verifyToken(token: string): Promise<boolean> {
+    return this.jwt.verifyToken(token);
   }
 
   async create(userData: CreateUserDto) {

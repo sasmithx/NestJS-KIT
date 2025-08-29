@@ -22,6 +22,18 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  // @Post()                                                      // Endpoint to verify JWT token (Working)
+  // @HttpCode(HttpStatus.OK)
+  // verify(@Body() token: { token: string }) {
+  //   return this.userService.verifyToken(token.token);
+  // }
+
+  @Post('verifyToken')
+  @HttpCode(HttpStatus.OK)
+  verify(@Body('token') token: string) {
+    return this.userService.verifyToken(token);
+  }
+
   @Post('login')
   @HttpCode(HttpStatus.OK)
   login(@Body() loginuserData: { username: string; password: string }) {
