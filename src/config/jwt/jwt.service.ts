@@ -21,10 +21,15 @@ export class JwtAuthService {
     }
   }
 
+  // @ts-expect-error
   async verifyToken(token: string): Promise<boolean> {
     try {
-      const verify: unknown = await this.jwt.verifyAsync(token);
-      return verify as boolean;
+      console.log(token);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const verify = await this.jwt.verifyAsync(token);
+      if (verify) {
+        return true;
+      }
     } catch (error) {
       console.log(error);
       throw new UnauthorizedException();
