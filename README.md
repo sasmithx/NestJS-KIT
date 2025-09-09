@@ -21,78 +21,414 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# NestJS STARTER KIT
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A robust, production-ready REST API built with NestJS, featuring user authentication, product management, role-based access control, and advanced caching mechanisms.
 
-## Project setup
+## 🚀 Features
 
-```bash
-$ npm install
+- **🔐 JWT Authentication** - Secure token-based authentication system
+- **👥 User Management** - Complete CRUD operations for user entities
+- **📦 Product Management** - Full product lifecycle management
+- **🛡️ Role-Based Access Control** - Admin, User, and Editor roles with granular permissions
+- **⚡ Advanced Caching** - Redis-based caching with custom interceptors
+- **🗄️ Database Integration** - Prisma ORM with MySQL database
+- **🔧 TypeScript** - Full type safety and modern development experience
+- **📝 API Documentation** - Comprehensive endpoint documentation
+- **🧪 Testing Ready** - Jest testing framework configured
+
+## 🏗️ Architecture
+
+```
+src/
+├── api/                    # API modules
+│   ├── product/           # Product management
+│   │   ├── dto/          # Data Transfer Objects
+│   │   ├── product.controller.ts
+│   │   ├── product.service.ts
+│   │   └── product.module.ts
+│   └── user/             # User management
+│       ├── dto/          # Data Transfer Objects
+│       ├── entities/     # Database entities
+│       ├── user.controller.ts
+│       ├── user.service.ts
+│       └── user.module.ts
+├── config/               # Configuration modules
+│   ├── jwt/             # JWT authentication
+│   └── prisma/          # Database configuration
+├── decorator/           # Custom decorators
+│   ├── no-cache/       # Cache control
+│   ├── public/         # Public endpoints
+│   └── roles/          # Role-based access
+├── guard/              # Route guards
+│   └── jwtguard/       # JWT authentication guard
+├── interceptor/        # Request/Response interceptors
+│   └── api-cache/      # Caching interceptor
+└── main.ts             # Application entry point
 ```
 
-## Compile and run the project
+## 🛠️ Tech Stack
+
+- **Framework**: NestJS 11.x
+- **Language**: TypeScript 5.x
+- **Database**: MySQL with Prisma ORM
+- **Authentication**: JWT (JSON Web Tokens)
+- **Caching**: Redis with NestJS Cache Manager
+- **Testing**: Jest
+- **Code Quality**: ESLint + Prettier
+
+## 📋 Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+- MySQL database
+- Redis (for caching)
+
+## 🚀 Quick Start
+
+### 1. Clone the Repository
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone <repository-url>
+cd pro-nest
 ```
 
-## Run tests
+### 2. Install Dependencies
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
+### 3. Environment Setup
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Create a `.env` file in the root directory:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+```env
+# Database
+DATABASE_URL="mysql://username:password@localhost:3306/pro_nest_db"
+
+# JWT
+JWT_SECRET="your-super-secret-jwt-key"
+JWT_EXPIRES_IN="1h"
+
+# Application
+PORT=3000
+NODE_ENV=development
+
+# Redis (for caching)
+REDIS_HOST=localhost
+REDIS_PORT=6379
+```
+
+### 4. Database Setup
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Generate Prisma client
+npx prisma generate
+
+# Run database migrations
+npx prisma migrate dev
+
+# (Optional) Seed the database
+npx prisma db seed
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 5. Start the Application
 
-## Resources
+```bash
+# Development mode
+npm run start:dev
 
-Check out a few resources that may come in handy when working with NestJS:
+# Production mode
+npm run build
+npm run start:prod
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+The API will be available at `http://localhost:3000/api/v1`
 
-## Support
+## 📚 API Documentation
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Authentication Endpoints
 
-## Stay in touch
+#### Register User
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```http
+POST /api/v1/user/register
+Content-Type: application/json
 
-## License
+{
+  "name": "John Doe",
+  "age": 30,
+  "username": "johndoe",
+  "password": "password123",
+  "email": "john@example.com",
+  "city": "New York",
+  "phone": "+1234567890"
+}
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+#### Login User
+
+```http
+POST /api/v1/user/login
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "password": "password123"
+}
+```
+
+#### Verify Token
+
+```http
+POST /api/v1/user/verifyToken
+Content-Type: application/json
+
+{
+  "token": "your-jwt-token-here"
+}
+```
+
+### Product Endpoints
+
+#### Get All Products
+
+```http
+GET /api/v1/product/all-products
+Authorization: Bearer <your-jwt-token>
+```
+
+#### Get Product by ID
+
+```http
+GET /api/v1/product/by-id/{id}
+```
+
+#### Create Product
+
+```http
+POST /api/v1/product/create-product
+Content-Type: application/json
+
+{
+  "title": "Product Name",
+  "price": 99.99,
+  "description": "Product description",
+  "image": "https://example.com/image.jpg"
+}
+```
+
+#### Update Product
+
+```http
+PUT /api/v1/product/update-product/{id}
+Content-Type: application/json
+
+{
+  "title": "Updated Product Name",
+  "price": 149.99,
+  "description": "Updated description",
+  "image": "https://example.com/updated-image.jpg"
+}
+```
+
+#### Delete Product
+
+```http
+DELETE /api/v1/product/delete-product/{id}
+```
+
+### User Management Endpoints
+
+#### Get All Users
+
+```http
+GET /api/v1/user
+Authorization: Bearer <your-jwt-token>
+```
+
+#### Get User by ID
+
+```http
+GET /api/v1/user/{id}
+Authorization: Bearer <your-jwt-token>
+```
+
+#### Update User
+
+```http
+PATCH /api/v1/user/{id}
+Content-Type: application/json
+Authorization: Bearer <your-jwt-token>
+
+{
+  "name": "Updated Name",
+  "age": 31,
+  "city": "Updated City"
+}
+```
+
+#### Delete User
+
+```http
+DELETE /api/v1/user/{id}
+Authorization: Bearer <your-jwt-token>
+```
+
+## 🔐 Authentication & Authorization
+
+### JWT Token Structure
+
+```json
+{
+  "name": "John Doe",
+  "role": "user",
+  "iat": 1640995200,
+  "exp": 1640998800
+}
+```
+
+### Role-Based Access Control
+
+The application supports three roles:
+
+- **ADMIN**: Full system access
+- **USER**: Standard user permissions
+- **EDITOR**: Content management permissions
+
+### Protected Routes
+
+Most endpoints require authentication. Use the `@Public()` decorator for public endpoints.
+
+## ⚡ Caching
+
+The application implements intelligent caching with:
+
+- **Global Cache**: 5-second TTL with 100 item limit
+- **Custom Interceptors**: API response caching
+- **Cache Control**: `@NoCache()` decorator for bypassing cache
+
+## 🧪 Testing
+
+```bash
+# Unit tests
+npm run test
+
+# E2E tests
+npm run test:e2e
+
+# Test coverage
+npm run test:cov
+
+# Watch mode
+npm run test:watch
+```
+
+## 📦 Available Scripts
+
+```bash
+# Development
+npm run start:dev          # Start in development mode
+npm run start:debug        # Start in debug mode
+
+# Production
+npm run build              # Build the application
+npm run start:prod         # Start in production mode
+
+# Code Quality
+npm run lint               # Run ESLint
+npm run format             # Format code with Prettier
+
+# Database
+npx prisma studio          # Open Prisma Studio
+npx prisma migrate dev     # Run migrations
+npx prisma generate        # Generate Prisma client
+```
+
+## 🗄️ Database Schema
+
+### User Model
+
+```prisma
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  age       Int
+  password  String
+  username  String   @unique
+  city      String?
+  phone     String?
+  email     String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+```
+
+### Product Model
+
+```prisma
+model Product {
+  id          Int      @id @default(autoincrement())
+  title       String
+  image       String
+  price       Decimal
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+```
+
+## 🚀 Deployment
+
+### Docker Deployment
+
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "run", "start:prod"]
+```
+
+### Environment Variables for Production
+
+```env
+NODE_ENV=production
+PORT=3000
+DATABASE_URL="mysql://user:password@db:3306/pro_nest_prod"
+JWT_SECRET="your-production-secret"
+REDIS_HOST=redis
+REDIS_PORT=6379
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the UNLICENSED License.
+
+## 🆘 Support
+
+For support and questions:
+
+- Create an issue in the repository
+- Check the API documentation
+- Review the test files for usage examples
+
+## 🔄 Version History
+
+- **v0.0.1** - Initial release with basic CRUD operations and JWT authentication
+
+---
+
+**Built with ❤️ using NestJS**
