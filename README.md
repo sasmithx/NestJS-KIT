@@ -415,7 +415,7 @@ REDIS_PORT=6379
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [MIT License](LICENSE) file for details.
+This project is licensed under the MIT License - see the [MIT License](LICENSE.md) file for details.
 
 ## 🆘 Support
 
