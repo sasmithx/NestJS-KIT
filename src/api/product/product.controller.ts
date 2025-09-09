@@ -11,12 +11,14 @@ import {
 import { ProductService } from './product.service';
 import { ProductData } from './dto/product-request';
 import { JwtGuard } from '../../guard/jwtguard/jwtguard.guard';
+import { Role, Roles } from '../../decorator/roles/roles.decorator';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   // @UseGuards(JwtguardGuard)
+  @Roles(Role.USER)
   @Get('all-products')
   getAllProducts() {
     return this.productService.getAllProducts();
