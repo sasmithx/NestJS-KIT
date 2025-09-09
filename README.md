@@ -89,7 +89,7 @@ src/
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/sasmithx/NestJS-KIT.git
 cd pro-nest
 ```
 
@@ -415,7 +415,7 @@ REDIS_PORT=6379
 
 ## 📝 License
 
-This project is licensed under the UNLICENSED License.
+This project is licensed under the MIT License - see the [MIT License](LICENSE) file for details.
 
 ## 🆘 Support
 
