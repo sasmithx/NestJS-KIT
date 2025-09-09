@@ -12,7 +12,7 @@ Content-Type: application/json
 ####
 
 GET http://localhost:3000/api/v1/product/all-products
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJyb2xlIjoidXNlciIsImlhdCI6MTc1NzM5OTUwOCwiZXhwIjoxNzU3NDAzMTA4fQ.XqVUuIjmdl4c5fZbYXto9vGiF4471iMJPd8AzB864eY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJyb2xlIjoidXNlciIsImlhdCI6MTc1NzQyNTkyNSwiZXhwIjoxNzU3NDI5NTI1fQ.l8345BnkJN2OvOBBllGae-NcXaly0UaGxCSS9qi-dvY
 
 ###
 
