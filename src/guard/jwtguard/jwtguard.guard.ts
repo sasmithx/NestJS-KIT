@@ -3,7 +3,7 @@ import type { Request } from 'express';
 import { JwtAuthService } from '../../config/jwt/jwt.service';
 
 @Injectable()
-export class JwtguardGuard implements CanActivate {
+export class JwtGuard implements CanActivate {
   constructor(private readonly jwtService: JwtAuthService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req: Request = context.switchToHttp().getRequest();

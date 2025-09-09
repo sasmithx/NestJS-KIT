@@ -12,6 +12,7 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Public } from 'src/decorator/public/public.decorator';
 
 @Controller('user')
 export class UserController {
@@ -34,6 +35,7 @@ export class UserController {
     return this.userService.verifyToken(token);
   }
 
+  @Public()
   @Post('login')
   @HttpCode(HttpStatus.OK)
   login(@Body() loginuserData: { username: string; password: string }) {

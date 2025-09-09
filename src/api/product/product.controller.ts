@@ -10,13 +10,13 @@ import {
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ProductData } from './dto/product-request';
-import { JwtguardGuard } from '../../guard/jwtguard/jwtguard.guard';
+import { JwtGuard } from '../../guard/jwtguard/jwtguard.guard';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @UseGuards(JwtguardGuard)
+  // @UseGuards(JwtguardGuard)
   @Get('all-products')
   getAllProducts() {
     return this.productService.getAllProducts();

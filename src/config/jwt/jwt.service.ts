@@ -32,6 +32,8 @@ export class JwtAuthService {
       }
     } catch (error) {
       console.log(error);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      if (error?.expiredAt) throw new UnauthorizedException('Token expired');
       throw new UnauthorizedException();
     }
   }
